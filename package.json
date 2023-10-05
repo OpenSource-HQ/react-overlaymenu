@@ -1,6 +1,6 @@
 {
   "name": "overlaymenu",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "author": "Abdhesh Nayak",
   "license": "MIT",
   "description": "A easy to use react popup or modal handling component.",
@@ -14,8 +14,23 @@
     "ui"
   ],
   "private": false,
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "types": "./dist/@types/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "exports": {
+    "./dist/index.css": {
+      "import": "./dist/index.css",
+      "require": "./dist/index.css"
+    },
+    ".": {
+      "import": {
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "default": "./dist/index.js"
+      }
+    }
+  },
   "files": [
     "dist",
     "README.md",
@@ -25,49 +40,43 @@
     "type": "git",
     "url": "git+https://github.com/abdheshnayak/react-overlaymenu.git"
   },
-  "dependencies": {
-    "core-js": "^3.24.1",
-    "regenerator-runtime": "^0.13.9"
-  },
   "scripts": {
-    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files",
-    "react-build": "CI=false GENERATE_SOURCEMAP=false react-scripts build",
-    "start": "react-scripts start",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "npm run clean && node build.js && npm run tsc",
+    "pack": "npm pack --pack-destination ./out",
+    "clean": "rimraf dist",
+    "dev:build": "npm run build",
+    "tsc": "tsc --emitDeclarationOnly --outDir ./dist/@types"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
+  "dependencies": {},
   "devDependencies": {
-    "@babel/cli": "^7.18.10",
-    "@babel/core": "^7.18.10",
-    "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.18.10",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "autoprefixer": "^10.4.8",
-    "postcss": "^8.4.14",
+    "@types/react": "^18.2.22",
+    "@types/react-dom": "^18.2.7",
+    "@types/uuid": "^9.0.4",
+    "@types/websocket": "^1.0.6",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "esbuild": "^0.19.2",
+    "esbuild-sass-plugin": "^2.15.0",
+    "eslint": "^8.47.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-jsconfig": "^1.1.0",
+    "eslint-import-resolver-node": "^0.3.6",
+    "eslint-import-resolver-typescript": "^3.6.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prefer-arrow-functions": "^3.1.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "tailwindcss": "^3.1.8",
-    "web-vitals": "^2.1.4"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "rimraf": "^5.0.1",
+    "typescript": "^5.2.2"
   }
 }
